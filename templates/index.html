@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for x in todo %}
+<p>{{x.text}}</p> <a href="removeTodo/{{x.id}}"><img src="https://img.icons8.com/?size=16&id=57061&format=png" class="rounded mx-auto d-block" alt="test" /></a>
+{% endfor %}
+
+<form class="container" method="post" action="{%url 'saveTodo'%}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="todo_text" class="form-label">Text</label>
+      <input name="todo" class="form-control" id="exampleInputText1" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock content %}
