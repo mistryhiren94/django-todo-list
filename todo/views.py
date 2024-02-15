@@ -13,6 +13,7 @@ def index(request):
 
 def saveTodo(request):
     text = request.POST.get('todo')
+    user = request.user
     Todo.objects.create(text = text)
     return redirect('/')
 
@@ -30,9 +31,25 @@ def updateTodo(request, id):
         return render(request, "update.html", context)
     elif request.method == "POST":
         text = request.POST.get('todo')
-        print(text)
-        Todo.objects.filter(id=id).update(text=text)
-        # return JsonResponse({
-        #     'data':'Updated'
-        # })
+
+        # using update query
+        # Todo.objects.filter(id=id).update(text=text)
+
+        # using save function
+        selectedTodo = Todo.objects.get(id = id)
+        selectedTodo.text = text
+        selectedTodo.save()
+
         return redirect('/')
+
+def search(request):
+    q = request.GET["q"]
+    todo = Todo.objects.filter(text__contains=q)
+    data = []
+    for x in todo:
+        data.append(x.text)
+    return JsonResponse({
+        'data': data
+    })
+
+    

@@ -1,3 +1,21 @@
+<script>
+    async function onSearchClick() {
+        const value = document.getElementById('search-input').value
+        try {
+            const response = await fetch(`/search?q=${value}`, {
+            method: "GET", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            });
+
+            const result = await response.json();
+            console.log("Success==", result);
+        } catch (error) {
+            console.error("Error:==", error);
+        }
+    }
+</script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
@@ -27,10 +45,10 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
+          <button class="btn btn-outline-primary" onclick="onSearchClick()">Search</button>
+        </div>
       </div>
     </div>
   </nav>
