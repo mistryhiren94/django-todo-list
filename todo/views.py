@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from . models import Todo
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -19,3 +20,19 @@ def removeTodo(request, id):
     deleteTodo = Todo.objects.get(id = id)
     deleteTodo.delete()
     return redirect('/')
+
+def updateTodo(request, id):
+    if request.method == "GET":
+        todo = Todo.objects.get(id = id)
+        context = {
+            "todo":todo
+        }
+        return render(request, "update.html", context)
+    elif request.method == "POST":
+        text = request.POST.get('todo')
+        print(text)
+        Todo.objects.filter(id=id).update(text=text)
+        # return JsonResponse({
+        #     'data':'Updated'
+        # })
+        return redirect('/')

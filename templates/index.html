@@ -2,7 +2,17 @@
 
 {% block content %}
 {% for x in todo %}
-<p>{{x.text}}</p> <a href="removeTodo/{{x.id}}"><img src="https://img.icons8.com/?size=16&id=57061&format=png" class="rounded mx-auto d-block" alt="test" /></a>
+<form class="container row g-3">
+  <div class="col-6">
+    <label for="staticEmail2" class="visually-hidden">Email</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{x.text}}">
+  </div>
+  <div class="col-6">
+    <a class="btn btn-primary" href="updateTodo/{{x.id}}" title="Edit"><img src="https://img.icons8.com/?size=16&id=86374&format=png" class="rounded mx-auto d-block" alt="edit" /></a>
+    <a class="btn btn-primary" href="removeTodo/{{x.id}}" title="Delete"><img src="https://img.icons8.com/?size=16&id=UXGrKssCNlJd&format=png" class="rounded mx-auto d-block" alt="delete" /></a>
+    <!-- <button type="submit" class="btn btn-primary mb-3">Delete</button> -->
+  </div>
+</form>
 {% endfor %}
 
 <form class="container" method="post" action="{%url 'saveTodo'%}">

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Update Todo</h2>
+    <form class="container" method="post" action="/updateTodo/{{todo.id}}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="todo_text" class="form-label">Text</label>
+            <input name="todo" class="form-control" id="exampleInputText1" aria-describedby="emailHelp" value="{{todo.text}}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+{% endblock content %}
